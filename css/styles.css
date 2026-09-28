@@ -2270,39 +2270,6 @@ body[data-site-classes~="light-mode"] .store-badge-dark-mode {
 }
 
 /* =========================================
-   Hero Release Note & Screenshot
-   ========================================= */
-
-.hero-release-note {
-    margin: 0.25rem 0 0;
-    font-size: 0.9375rem;
-    color: var(--text-muted);
-}
-
-.hero-screenshot {
-    margin-top: 1.5rem;
-}
-
-.hero-screenshot-image {
-    width: 100%;
-    max-width: 800px;
-    border-radius: 1.25rem;
-    border: 1px solid rgba(128, 128, 128, 0.25);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
-}
-
-/* =========================================
-   Screenshot Captions
-   ========================================= */
-
-.screenshot-caption {
-    margin: 0.625rem 0 0;
-    text-align: center;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
-
-/* =========================================
    Contact Form Styles
    ========================================= */
 
