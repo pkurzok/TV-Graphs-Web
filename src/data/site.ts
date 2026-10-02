@@ -37,6 +37,7 @@ export const footerLinks = [
   { label: 'Privacy Policy', href: '/privacy/' },
   { label: 'Terms of Service', href: 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula' },
   { label: 'Press Kit', href: '/press/' },
+  { label: 'More Apps', href: 'https://apps.peterkurzok.de' },
 ];
 
 export const social = [
