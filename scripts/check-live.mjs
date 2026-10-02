@@ -28,6 +28,13 @@ const report = (ok, label, problem) => {
 
 const get = (pathname) => fetch(base + pathname, { redirect: 'manual' });
 
+try {
+  await get('/');
+} catch (error) {
+  console.log(`✗ ${base} is not reachable: ${error.cause?.message ?? error.message}`);
+  process.exit(1);
+}
+
 // Answers with `status`; `contentType` and `body` are optional further expectations.
 const expectStatus = async (status, pathname, { contentType, body } = {}) => {
   const response = await get(pathname);
@@ -103,9 +110,11 @@ for (const archive of archives) {
 await expectRedirect(301, '/privacy.html', '/privacy/');
 await expectRedirect(301, '/press.html', '/press/');
 
-// Unknown paths, including the files of the old generator
-await expectStatus(404, '/does-not-exist');
-await expectStatus(404, '/css/styles.css');
+// Unknown paths, including a file of the old generator. Cloudflare's edge may serve a deleted
+// file from its cache for up to a week; the query string asks the deployment itself.
+const fresh = `?fresh=${Date.now()}`;
+await expectStatus(404, `/does-not-exist${fresh}`);
+await expectStatus(404, `/css/styles.css${fresh}`);
 
 if (failures > 0) {
   console.log(`${failures} of ${checks} checks failed.`);

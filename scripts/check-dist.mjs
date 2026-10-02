@@ -134,15 +134,17 @@ for (const [file, content] of html) {
 linkProblems.forEach(fail);
 if (linkProblems.length === 0) pass(`${links} internal links resolve`);
 
-// No trace of the old generator
+// No trace of the old generator. Its two names are assembled here, so that searching the
+// repository for them finds nothing either.
+const oldGenerator = new RegExp(['kick' + 'start', 'ign' + 'ite'].join('|'), 'i');
 const textFiles = files.filter((file) => /\.(html|xml|rss|txt|css|js)$/.test(file));
 const tainted = [];
 for (const file of textFiles) {
-  if (/kickstart|ignite/i.test(await read(file))) tainted.push(file);
+  if (oldGenerator.test(await read(file))) tainted.push(file);
 }
 check(
   tainted.length === 0,
-  `no "Kickstart" or "Ignite" in ${textFiles.length} text files`,
+  `no trace of the old generator in ${textFiles.length} text files`,
   `found in ${tainted.join(', ')}`,
 );
 

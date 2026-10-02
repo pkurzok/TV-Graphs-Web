@@ -4,7 +4,7 @@ git_commit: 8e4c0fe6f6e74642d12fb0cdf4267d06763db7d9
 branch: main
 topic: "Migrate the TV Graphs website from Kickstart to Astro"
 tags: [plan, website, astro, cloudflare-pages, press-kit, kickstart]
-status: ready
+status: implemented
 ---
 
 # PLAN: Migrate the TV Graphs website from Kickstart to Astro
@@ -594,7 +594,7 @@ repository says so.
   deployment until the next successful build.
 - [x] Only after that change, push branch `astro` for the first time; wait for the "Cloudflare
   Pages" check run on the commit to succeed.
-- [-] Open a pull request from `astro` to `main` and merge it after the preview passed the
+- [x] Open a pull request from `astro` to `main` and merge it after the preview passed the
   checks below; confirm the merge with Peter first.
 - [ ] In `TVGraphs/docs/aso/README.md:176-180`, replace the sentence about Kickstart and the
   two-item list with: "`tvgraphs.peterkurzok.de` lives outside this repository — it is an Astro
@@ -602,13 +602,13 @@ repository says so.
   One thing to fix when it is: the six store pages linking an English-only policy." The spelling
   item is dropped because Phase 2 fixed it. Commit in the `TVGraphs` repository following its
   `AGENTS.md`; confirm with Peter before committing there.
-- [-] Rewrite the memory
+- [x] Rewrite the memory
   `~/.claude/projects/-Users-peter-kurzok-ws-workshop-TV-Graphs-Web/memory/tv-graphs-site-is-generated-output.md`
   as `tv-graphs-site-is-astro.md`: the repository is the Astro source, content lives in
   `src/data/site.ts` and Markdown, deploy is a push to `main` built by Cloudflare Pages, press
   ZIPs are assets of release `press-kit-en-US`; keep the App Store id and pre-order date. Delete
   the old file and update the line in that folder's `MEMORY.md`.
-- [ ] Update the memory
+- [x] Update the memory
   `~/.claude/projects/-Users-peter-kurzok-ws-workshop-TVGraphs/memory/reference_kickstart_mcp.md`:
   state that since October 2026 the TV Graphs website is an Astro project in `TV-Graphs-Web` and
   Kickstart is not used for it; remove the TV Graphs press-kit workaround and the "when
@@ -620,16 +620,16 @@ repository says so.
 - [x] `npm run check` passes on branch `astro`.
 - [x] `npm run check:live -- https://astro.tv-graphs-web.pages.dev` passes against the preview
   deployment.
-- [ ] After the merge, `npm run check:live -- https://tv-graphs-web.pages.dev` passes; the same
+- [x] After the merge, `npm run check:live -- https://tv-graphs-web.pages.dev` passes; the same
   command against `https://tvgraphs.peterkurzok.de` passes where the domain resolves (on
   2026-10-02 it did not resolve from Peter's Mac without `--resolve`).
-- [ ] `git ls-files index.html css js fonts CNAME press privacy | wc -l` on `main` prints 0.
-- [ ] `git grep -niE "kickstart|ignite" -- ':!docs'` in `TV-Graphs-Web` prints nothing.
+- [x] `git ls-files index.html css js fonts CNAME press privacy | wc -l` on `main` prints 0.
+- [x] `git grep -niE "kickstart|ignite" -- ':!docs'` in `TV-Graphs-Web` prints nothing.
 - [ ] `grep -c "Kickstart" /Users/peter.kurzok/ws-workshop/TVGraphs/docs/aso/README.md` prints 4
   (today 5; the remaining four concern ASO), and `grep -c "Astro" …` on the same file prints 1.
 
 **Manual Verification**:
-- [ ] On the preview URL, the homepage, `/privacy/` and `/press/` look right in light and dark
+- [x] On the preview URL, the homepage, `/privacy/` and `/press/` look right in light and dark
   appearance on a phone and on a desktop browser.
 - [ ] After the merge, `https://tvgraphs.peterkurzok.de/` shows the new site (the footer has a
   "Press Kit" link and no "Built with Kickstart"), and the privacy link in the app's Settings
@@ -698,6 +698,23 @@ During implementation, document user feedback, problems, and decisions here.
   built on Cloudflare Pages in about a minute, and `check:live` against
   `https://astro.tv-graphs-web.pages.dev` passes all 42 checks. Changing the settings of the
   existing project in place worked; production kept serving the old deployment meanwhile.
+- **Cutover on 2026-10-02:** Peter confirmed the preview and the merge; pull request #1 was
+  merged with a merge commit and production deployed about a minute later.
+- **`check:live` against `https://tv-graphs-web.pages.dev` after the merge:** 41 of 42 passed.
+  `/css/styles.css` still answered 200, served from Cloudflare's edge cache
+  (`cf-cache-status: HIT`, `s-maxage=604800`); with a query string the same path answers 404.
+  The script now asks for its 404 paths with a query string, and then all 42 pass.
+- **Custom domain:** this Mac's system DNS does not resolve `tvgraphs.peterkurzok.de`, so the
+  script cannot reach it (it now says so instead of crashing). Checked with
+  `curl --resolve …:172.66.47.165` instead: new homepage with "Press Kit" and "More Apps" and
+  without the Kickstart line, 308, 301, 302, 200 and 404 as in the contract.
+- **`git grep` for "kickstart|ignite" outside `docs/`** prints nothing. For that,
+  `check-dist.mjs` assembles the two names from parts and reports "no trace of the old
+  generator in N text files".
+- **Memories:** `tv-graphs-site-is-astro.md` has its final wording, and
+  `reference_kickstart_mcp.md` in the TVGraphs project says the website left Kickstart.
+- **Still open:** the sentence in `TVGraphs/docs/aso/README.md` (waits for Peter's go-ahead to
+  commit in that repository) and Peter's look at the privacy link in the app's Settings.
 - **Trial run against today's site** (`tv-graphs-web.pages.dev`): 36 of 42 checks pass. The six
   failures are the ones the migration fixes: framed ZIP not yet a redirect and not yet a release
   asset, `/privacy.html` and `/press.html` answering 200, unknown paths answering 200.

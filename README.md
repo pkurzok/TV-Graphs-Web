@@ -101,6 +101,14 @@ npm run check:live -- https://<branch>.tv-graphs-web.pages.dev
 npm run check:live -- https://tvgraphs.peterkurzok.de
 ```
 
+Two things to know about the checks:
+
+- Cloudflare's edge may keep answering for a deleted file from its cache for up to a week.
+  `check:live` therefore asks for its 404 paths with a query string, which bypasses that cache.
+- Where a machine's DNS does not resolve `tvgraphs.peterkurzok.de`, run the check against
+  `https://tv-graphs-web.pages.dev`, which is the same deployment, and test the domain itself
+  with `curl --resolve tvgraphs.peterkurzok.de:443:<Cloudflare IP> https://tvgraphs.peterkurzok.de/`.
+
 ### Rollback
 
 In the Cloudflare dashboard open the Pages project, go to Deployments and choose "Rollback" on
