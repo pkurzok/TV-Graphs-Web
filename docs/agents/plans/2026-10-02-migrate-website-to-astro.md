@@ -525,10 +525,10 @@ repository holds no ZIP any more.
   buttons use `.button`.
 - [x] Carry the press styles of `press/index.html:26-48` into `src/styles/site.css`, with the
   three download cards in a CSS grid instead of Bootstrap's `row` and `col-md-4`.
-- [ ] Upload the framed ZIP to the release:
+- [x] Upload the framed ZIP to the release:
   `gh release upload press-kit-en-US press/TV-Graphs-Framed-Screenshots-en-US.zip -R pkurzok/TV-Graphs-Web`.
   This publishes the file; confirm with Peter before running it.
-- [ ] Update the release title to "Press kit — screenshots (en-US)" and its notes to name both
+- [x] Update the release title to "Press kit — screenshots (en-US)" and its notes to name both
   archives and both redirecting URLs: `gh release edit press-kit-en-US --title … --notes …`.
 - [x] Move `_redirects` to `public/_redirects` with `git mv` and extend it:
   ```
@@ -540,7 +540,7 @@ repository holds no ZIP any more.
   /privacy.html /privacy/ 301
   /press.html /press/ 301
   ```
-- [-] Delete `press/index.html` and `press/TV-Graphs-Framed-Screenshots-en-US.zip`.
+- [x] Delete `press/index.html` and `press/TV-Graphs-Framed-Screenshots-en-US.zip`.
 - [x] Extend `scripts/check-dist.mjs`: expected file `press/index.html`; `_redirects` contains
   the four rules above; no `.zip` in `dist/`; `press/index.html` contains the ids `downloads`,
   `facts`, `contact` and links both ZIP URLs and `/images/app-icon.png`; the `pending` list is
@@ -551,12 +551,12 @@ repository holds no ZIP any more.
   file above 25 MiB may enter the build.
 
 **Automated Verification**:
-- [ ] `gh release view press-kit-en-US -R pkurzok/TV-Graphs-Web --json assets --jq '.assets[].name'`
+- [x] `gh release view press-kit-en-US -R pkurzok/TV-Graphs-Web --json assets --jq '.assets[].name'`
   lists both ZIP names.
-- [ ] `curl -sIL https://github.com/pkurzok/TV-Graphs-Web/releases/download/press-kit-en-US/TV-Graphs-Framed-Screenshots-en-US.zip`
+- [x] `curl -sIL https://github.com/pkurzok/TV-Graphs-Web/releases/download/press-kit-en-US/TV-Graphs-Framed-Screenshots-en-US.zip`
   ends in status 200 with `content-length: 13783476`.
 - [x] `npm run check` passes with the extended assertions.
-- [ ] `git ls-files '*.zip'` prints nothing.
+- [x] `git ls-files '*.zip'` prints nothing.
 
 **Manual Verification**:
 - [ ] `npm run dev`, open `/press/` next to the live page: download cards, about, gallery,
@@ -684,8 +684,9 @@ During implementation, document user feedback, problems, and decisions here.
   and turned the gallery from five columns into four.
 - **The facts table wraps the App Store address on a phone** (`overflow-wrap: anywhere`); today
   it makes the page scroll sideways.
-- **The framed ZIP stays in the repository until it is uploaded to the release;** upload,
-  release notes and the deletion wait for Peter's confirmation.
+- **Release updated after Peter's confirmation:** the framed ZIP (13,783,476 bytes) is an asset
+  of `press-kit-en-US`, the release is titled "Press kit — screenshots (en-US)" and its notes
+  name both archives; the ZIP is removed from the repository.
 
 ### Phase 4 (2026-10-02)
 
