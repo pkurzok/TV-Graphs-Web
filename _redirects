@@ -1,4 +1,0 @@
-# Cloudflare Pages rejects any single file over 25 MiB, which failed the whole
-# deploy while the raw screenshot ZIP (93 MB) lived in press/. It is a release
-# asset instead; this keeps the published URL working for anyone who has it.
-/press/TV-Graphs-Raw-Screenshots-en-US.zip https://github.com/pkurzok/TV-Graphs-Web/releases/download/press-kit-en-US/TV-Graphs-Raw-Screenshots-en-US.zip 302

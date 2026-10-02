@@ -209,5 +209,69 @@ export const screenshots = [
   },
 ] as const;
 
+// The press kit. Its longer texts are src/data/press/*.md.
+export const press = {
+  title: 'Press Kit',
+  lead: 'Episode rating charts for every TV series, native on iPhone, iPad, Mac, Apple TV and Apple Vision Pro. Free, with nothing to buy and nothing to subscribe to.',
+  leadLaunch: {
+    preorder: 'Launching on the App Store on 11 October 2026.',
+    released: 'Available on the App Store since 11 October 2026.',
+  },
+  // The ZIP archives are assets of the GitHub release press-kit-en-US; public/_redirects
+  // sends the /press/ URLs there.
+  downloads: [
+    {
+      title: 'Framed screenshots',
+      text: '23 framed images in Apple device bezels — iPhone, iPad, Mac, Apple TV and Apple Vision Pro (English). JPG, 14\u00a0MB.',
+      href: '/press/TV-Graphs-Framed-Screenshots-en-US.zip',
+      label: 'Download ZIP',
+    },
+    {
+      title: 'Raw screenshots',
+      text: '23 unframed, full-resolution captures straight from the device screens (English). PNG, 93\u00a0MB.',
+      href: '/press/TV-Graphs-Raw-Screenshots-en-US.zip',
+      label: 'Download ZIP',
+    },
+    {
+      title: 'App icon',
+      text: 'The TV Graphs app icon as PNG.',
+      href: '/images/app-icon.png',
+      label: 'Download PNG',
+      download: 'TV-Graphs-App-Icon.png',
+    },
+  ] as { title: string; text: string; href: string; label: string; download?: string }[],
+  downloadsNote:
+    "Screenshots in German, Polish, Italian, Spanish and French — the app's other five languages — are available on request.",
+  galleryNote: 'All 23 framed and 23 raw images are in the ZIP archives above.',
+  facts: [
+    {
+      label: 'Launch',
+      value: {
+        preorder: '11 October 2026 on the App Store (available for pre-order now)',
+        released: '11 October 2026 on the App Store',
+      }[app.status],
+    },
+    { label: 'Price', value: 'Free — no in-app purchases, no subscription, no advertising' },
+    {
+      label: 'Platforms',
+      value:
+        'iPhone and iPad (iOS/iPadOS 26 or later), Mac (macOS 26 or later), Apple TV (tvOS 26 or later), Apple Vision Pro (visionOS 26 or later)',
+    },
+    { label: 'AI recommendations', value: 'Require iOS, iPadOS, macOS or visionOS 27 with Apple Intelligence' },
+    { label: 'Languages', value: 'English, German, Polish, Italian, Spanish, French' },
+    { label: 'App Store', value: app.appStoreUrl.replace('https://', ''), href: app.appStoreUrl },
+    { label: 'Website', value: 'tvgraphs.peterkurzok.de', href: 'https://tvgraphs.peterkurzok.de' },
+  ] as { label: string; value: string; href?: string }[],
+  contact: {
+    name: 'Peter Kurzok',
+    email: 'tvgraphs@peterkurzok.de',
+    // Shown below the address; nothing is shown once the app is released.
+    note: {
+      preorder: 'Review access before launch is available via TestFlight on request.',
+      released: null,
+    } as Record<LaunchStatus, string | null>,
+  },
+};
+
 // The paths the sitemap lists.
 export const pages = ['/', '/privacy/', '/press/'];

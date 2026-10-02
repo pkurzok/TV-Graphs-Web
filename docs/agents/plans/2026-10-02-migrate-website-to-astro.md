@@ -511,26 +511,26 @@ Dependencies: Phase 2
 repository holds no ZIP any more.
 
 **Tasks**:
-- [ ] Add `press` to `src/data/site.ts`: lead (with per-status last sentence), the three
+- [x] Add `press` to `src/data/site.ts`: lead (with per-status last sentence), the three
   download cards (title, text, `href`, button label, optional `download` file name), the facts
   rows (with per-status "Launch" value), contact (with the TestFlight line for `preorder` only);
   texts verbatim from `press/index.html`.
-- [ ] Add `src/data/press/about.md`, `developer.md`, `usage-notes.md` with the prose of
+- [x] Add `src/data/press/about.md`, `developer.md`, `usage-notes.md` with the prose of
   `press/index.html:99-110`, `:169` and `:180-181`.
-- [ ] Add `src/pages/press.astro`: `Base` with title `TV Graphs — Press Kit` and the
+- [x] Add `src/pages/press.astro`: `Base` with title `TV Graphs — Press Kit` and the
   description of `press/index.html:8`; sections `downloads`, `about`, `screenshots`, `facts`,
   `developer`, `contact`, `notes` with today's ids; Markdown through
   `import { Content as About } from '../data/press/about.md'`; gallery from `screenshots` with
   `<Image>` at width 640, the entry's `alt` and its `caption` as `<figcaption>`; download
   buttons use `.button`.
-- [ ] Carry the press styles of `press/index.html:26-48` into `src/styles/site.css`, with the
+- [x] Carry the press styles of `press/index.html:26-48` into `src/styles/site.css`, with the
   three download cards in a CSS grid instead of Bootstrap's `row` and `col-md-4`.
 - [ ] Upload the framed ZIP to the release:
   `gh release upload press-kit-en-US press/TV-Graphs-Framed-Screenshots-en-US.zip -R pkurzok/TV-Graphs-Web`.
   This publishes the file; confirm with Peter before running it.
 - [ ] Update the release title to "Press kit — screenshots (en-US)" and its notes to name both
   archives and both redirecting URLs: `gh release edit press-kit-en-US --title … --notes …`.
-- [ ] Move `_redirects` to `public/_redirects` with `git mv` and extend it:
+- [x] Move `_redirects` to `public/_redirects` with `git mv` and extend it:
   ```
   # Cloudflare Pages rejects any single file over 25 MiB, so the press archives are
   # release assets; these lines keep the published URLs working.
@@ -540,12 +540,12 @@ repository holds no ZIP any more.
   /privacy.html /privacy/ 301
   /press.html /press/ 301
   ```
-- [ ] Delete `press/index.html` and `press/TV-Graphs-Framed-Screenshots-en-US.zip`.
-- [ ] Extend `scripts/check-dist.mjs`: expected file `press/index.html`; `_redirects` contains
+- [-] Delete `press/index.html` and `press/TV-Graphs-Framed-Screenshots-en-US.zip`.
+- [x] Extend `scripts/check-dist.mjs`: expected file `press/index.html`; `_redirects` contains
   the four rules above; no `.zip` in `dist/`; `press/index.html` contains the ids `downloads`,
   `facts`, `contact` and links both ZIP URLs and `/images/app-icon.png`; the `pending` list is
   now empty and is removed.
-- [ ] Extend `README.md`: updating the press archives
+- [x] Extend `README.md`: updating the press archives
   (`gh release upload press-kit-en-US <zip> --clobber`; the archives come from
   `TVGraphs/Screenshots/screenshots/en-US` and `raw-screenshots/en-US`), and the rule that no
   file above 25 MiB may enter the build.
@@ -555,7 +555,7 @@ repository holds no ZIP any more.
   lists both ZIP names.
 - [ ] `curl -sIL https://github.com/pkurzok/TV-Graphs-Web/releases/download/press-kit-en-US/TV-Graphs-Framed-Screenshots-en-US.zip`
   ends in status 200 with `content-length: 13783476`.
-- [ ] `npm run check` passes with the extended assertions.
+- [x] `npm run check` passes with the extended assertions.
 - [ ] `git ls-files '*.zip'` prints nothing.
 
 **Manual Verification**:
@@ -571,8 +571,8 @@ The Astro site replaces the Kickstart export in production, and the documentatio
 repository says so.
 
 **Tasks**:
-- [ ] Delete `CNAME`.
-- [ ] Add `scripts/check-live.mjs` (Node built-ins, `fetch` with `redirect: 'manual'`, base URL
+- [x] Delete `CNAME`.
+- [x] Add `scripts/check-live.mjs` (Node built-ins, `fetch` with `redirect: 'manual'`, base URL
   as argument) and the script `check:live: node scripts/check-live.mjs` in `package.json`.
   Expected results:
   - 200: `/`, `/privacy/`, `/press/`, `/feed.rss` (`application/rss+xml`), `/sitemap.xml`
@@ -584,7 +584,7 @@ repository says so.
   - 301: `/privacy.html` to `/privacy/`, `/press.html` to `/press/`
   - 404: `/does-not-exist`, `/css/styles.css`
   - `<title>` of `/privacy/` is `Privacy Policy - TV Graphs`
-- [ ] Extend `README.md`: deployment (Cloudflare Pages project `tv-graphs-web`, build command
+- [x] Extend `README.md`: deployment (Cloudflare Pages project `tv-graphs-web`, build command
   `npm run build`, output directory `dist`, `NODE_VERSION` 22, push to `main` deploys, branches
   get `<branch>.tv-graphs-web.pages.dev`), the URL contract and `npm run check:live`, rollback
   (Pages, Deployments, "Rollback" on an earlier deployment).
@@ -617,7 +617,7 @@ repository says so.
   that folder's `MEMORY.md` and the `description` in the frontmatter.
 
 **Automated Verification**:
-- [ ] `npm run check` passes on branch `astro`.
+- [x] `npm run check` passes on branch `astro`.
 - [ ] `npm run check:live -- https://astro.tv-graphs-web.pages.dev` passes against the preview
   deployment.
 - [ ] After the merge, `npm run check:live -- https://tv-graphs-web.pages.dev` passes; the same
@@ -672,6 +672,28 @@ During implementation, document user feedback, problems, and decisions here.
   is set.
 - **The feed drops two unused XML namespaces** (`dc`, `content`) along with the `generator`.
 - **The sitemap has no `<priority>`** any more, as planned.
+
+### Phase 3 (2026-10-02)
+
+- **Press text verified against the live page element by element:** identical. At 1280 px every
+  section has the size and position it has today.
+- **The press content keeps its 1200 px width, with a gutter on narrow windows.** Today
+  `.press-main` overrides the container padding with 0, so the text touches the window edge on
+  a phone. The rebuild uses `width: min(1200px, 100% - 3rem)`: unchanged at 1280 px, 24 px
+  gutter at 390 px. Using the shared container instead would have narrowed the page to 1120 px
+  and turned the gallery from five columns into four.
+- **The facts table wraps the App Store address on a phone** (`overflow-wrap: anywhere`); today
+  it makes the page scroll sideways.
+- **The framed ZIP stays in the repository until it is uploaded to the release;** upload,
+  release notes and the deletion wait for Peter's confirmation.
+
+### Phase 4 (2026-10-02)
+
+- **`check:live` compares every image** in `src/assets/images/` byte for byte, not only the
+  subset the plan lists, and it checks that both archives answer 200 at the release.
+- **Trial run against today's site** (`tv-graphs-web.pages.dev`): 36 of 42 checks pass. The six
+  failures are the ones the migration fixes: framed ZIP not yet a redirect and not yet a release
+  asset, `/privacy.html` and `/press.html` answering 200, unknown paths answering 200.
 
 ## References
 
