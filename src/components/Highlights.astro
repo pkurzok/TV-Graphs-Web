@@ -1,0 +1,22 @@
+---
+import { highlights, sections } from '../data/site';
+---
+
+<section id="highlights" class="highlights-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{sections.highlights.title}</h2>
+      <p class="section-description">{sections.highlights.description}</p>
+    </div>
+    <div class="highlights-grid">
+      {
+        highlights.map((highlight) => (
+          <div class="highlight-card">
+            <h4 class="highlight-title">{highlight.title}</h4>
+            <p class="highlight-description">{highlight.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
