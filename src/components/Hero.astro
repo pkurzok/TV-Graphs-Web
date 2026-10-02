@@ -1,0 +1,19 @@
+---
+import { Image } from 'astro:assets';
+import appIcon from '../assets/images/app-icon.png';
+import { hero } from '../data/site';
+import StoreBadge from './StoreBadge.astro';
+---
+
+<section id="hero" class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <Image src={appIcon} width={240} height={240} alt="App Icon" class="hero-app-icon" loading="eager" />
+      <h1 class="hero-title">{hero.title}</h1>
+      <p class="hero-subtitle">{hero.subtitle}</p>
+      <div class="hero-cta">
+        <StoreBadge />
+      </div>
+    </div>
+  </div>
+</section>

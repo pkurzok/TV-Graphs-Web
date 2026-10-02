@@ -1,0 +1,16 @@
+---
+import { app, sections } from '../data/site';
+import StoreBadge from './StoreBadge.astro';
+---
+
+<section id="download" class="download-section">
+  <div class="container">
+    <div class="download-content">
+      <h2>{sections.download.title}</h2>
+      <p class="download-description">{app.downloadText[app.status]}</p>
+      <div class="store-badges">
+        <StoreBadge />
+      </div>
+    </div>
+  </div>
+</section>
