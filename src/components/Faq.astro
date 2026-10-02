@@ -1,0 +1,24 @@
+---
+import { faq, sections } from '../data/site';
+---
+
+<section id="faq" class="faq-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>{sections.faq.title}</h2>
+    </div>
+    <div class="faq-accordion">
+      {
+        faq.map((entry) => (
+          // The shared name makes the browser close the open entry when another one opens.
+          <details name="faq" class="faq-item">
+            <summary>{entry.question}</summary>
+            <div class="faq-body">
+              <p class="faq-answer">{entry.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

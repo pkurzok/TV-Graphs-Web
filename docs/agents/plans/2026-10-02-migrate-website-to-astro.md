@@ -362,25 +362,25 @@ The homepage is served by Astro and looks like today's. Content comes from `site
 single-sourced, and the build is checked automatically.
 
 **Tasks**:
-- [ ] Create branch `astro` from `main`; commit this plan file on it. Keep the branch local:
+- [x] Create branch `astro` from `main`; commit this plan file on it. Keep the branch local:
   it is pushed for the first time in Phase 4, after the Cloudflare build settings changed.
-- [ ] Add `package.json` (`"type": "module"`, `"private": true`) with scripts
+- [x] Add `package.json` (`"type": "module"`, `"private": true`) with scripts
   `dev: astro dev`, `build: astro check && astro build`, `preview: astro preview`,
   `check: npm run build && node scripts/check-dist.mjs`;
   install `astro@^7.3`, and as dev dependencies `@astrojs/check`, `typescript`, `@types/node`;
   commit `package-lock.json`.
-- [ ] Add `astro.config.mjs` with `site: 'https://tvgraphs.peterkurzok.de'` and
+- [x] Add `astro.config.mjs` with `site: 'https://tvgraphs.peterkurzok.de'` and
   `markdown: { smartypants: false }`, `.nvmrc` with `22`, `tsconfig.json` extending
   `astro/tsconfigs/strict`.
-- [ ] Add `.astro/` to `.gitignore` (`node_modules/` and `dist/` are already listed).
-- [ ] Move `images/` to `src/assets/images/` with `git mv` (app icon, favicon, 8 screenshots,
+- [x] Add `.astro/` to `.gitignore` (`node_modules/` and `dist/` are already listed).
+- [x] Move `images/` to `src/assets/images/` with `git mv` (app icon, favicon, 8 screenshots,
   12 badge SVGs).
-- [ ] Add `src/pages/images/[...file].ts` as sketched above.
-- [ ] Add `src/data/site.ts` with `app`, `nav`, `footerLinks`, `social`, `hero`, `highlights`,
+- [x] Add `src/pages/images/[...file].ts` as sketched above.
+- [x] Add `src/data/site.ts` with `app`, `nav`, `footerLinks`, `social`, `hero`, `highlights`,
   `features`, `faq`, `screenshots`, `pages`; copy every text verbatim from `index.html`, take each
   screenshot's `alt` and `caption` from the `alt` attribute and the `<figcaption>` in
   `press/index.html:116-147`, and add the released wording from the table in Desired End State.
-- [ ] Add `src/styles/site.css`: carry over from `css/styles.css` the tokens (`:2-64`), base,
+- [x] Add `src/styles/site.css`: carry over from `css/styles.css` the tokens (`:2-64`), base,
   container, header, hero, section header, screenshots, highlights, features, download, FAQ,
   footer, legal pages, app icon, social links and store badges; drop every unused section.
   Replace the `body[data-site-classes…]` dark-mode selectors with one
@@ -389,40 +389,40 @@ single-sourced, and the build is checked automatically.
   and margin reset, heading sizes (`h1` `calc(1.375rem + 1.5vw)` capped at `2.5rem`, `h2`
   `2rem`, `h4` `1.5rem`), links, `.button` (purple, white text, small variant), navbar layout
   and its collapse below 768px, `<details>` accordion with chevron, `<dialog>` with backdrop.
-- [ ] Add `src/components/Icon.astro` with inline SVG paths for `graph-up`, `search`,
+- [x] Add `src/components/Icon.astro` with inline SVG paths for `graph-up`, `search`,
   `heart-fill`, `stars`, `window-sidebar`, `universal-access`, `mastodon`, `github` (Bootstrap
   Icons, MIT), each with `aria-hidden="true"`.
-- [ ] Add `src/components/StoreBadge.astro`: link to `app.appStoreUrl` with the black and the
+- [x] Add `src/components/StoreBadge.astro`: link to `app.appStoreUrl` with the black and the
   white badge of the current status, sources `/images/<file>-black.svg` and `-white.svg`.
-- [ ] Add `src/components/Header.astro`: brand link to `/`; nav entries from `site.ts`, anchors
+- [x] Add `src/components/Header.astro`: brand link to `/`; nav entries from `site.ts`, anchors
   prefixed with `/` when `Astro.url.pathname !== '/'`; a toggle button with `aria-expanded` and
   `aria-controls`, plus an inline script that flips the attribute and a `data-open` flag.
-- [ ] Add `src/components/Footer.astro`: tagline, social icon links with `aria-label`, footer
+- [x] Add `src/components/Footer.astro`: tagline, social icon links with `aria-label`, footer
   links (Privacy Policy, Terms of Service, Press Kit), copyright; no Kickstart link.
-- [ ] Add `src/layouts/Base.astro`: `lang="en"`, charset, viewport, `<title>`, description,
+- [x] Add `src/layouts/Base.astro`: `lang="en"`, charset, viewport, `<title>`, description,
   canonical built from `Astro.site` and `path`, Open Graph and Twitter tags including
   `og:image` `https://tvgraphs.peterkurzok.de/images/screenshots/mac-03-popular.jpg`,
   `apple-itunes-app`, author, a 64 px favicon and a 180 px `apple-touch-icon` generated with
   `getImage({ format: 'png' })` from `src/assets/images/app-icon.png` (the default would be
   WebP), `Header`, `<main>`, `Footer`.
-- [ ] Add `Hero.astro` (app icon through `<Image>` at 240 px for a 120 px slot, title, subtitle,
+- [x] Add `Hero.astro` (app icon through `<Image>` at 240 px for a 120 px slot, title, subtitle,
   `StoreBadge`), `Highlights.astro`, `Features.astro`, `Download.astro`.
-- [ ] Add `Faq.astro`: one `<details name="faq">` per entry with the question in `<summary>`.
-- [ ] Add `Screenshots.astro`: resolve each `screenshots[].file` to its `ImageMetadata` with
+- [x] Add `Faq.astro`: one `<details name="faq">` per entry with the question in `<summary>`.
+- [x] Add `Screenshots.astro`: resolve each `screenshots[].file` to its `ImageMetadata` with
   `import.meta.glob('../assets/images/screenshots/*.jpg', { eager: true })`; render `<Image>`
   at width 560 (portrait) or 1260 (landscape), `loading="lazy"`, with the entry's `alt`; each
   thumbnail is a `<button>` carrying the original URL `/images/screenshots/<file>`, the `alt`
   and the `caption`.
-- [ ] Add `Lightbox.astro`: a single `<dialog>` with caption, close button and `<img>`; an
+- [x] Add `Lightbox.astro`: a single `<dialog>` with caption, close button and `<img>`; an
   inline script sets `src`, `alt` and caption from the clicked button, calls `showModal()`, and
   closes on the button and on a backdrop click (Escape works natively).
-- [ ] Add `src/pages/index.astro` composing the sections in today's order with the ids `hero`,
+- [x] Add `src/pages/index.astro` composing the sections in today's order with the ids `hero`,
   `highlights`, `features`, `screenshots`, `faq`, `download`; title `TV Graphs`; description
   "TV Graphs plots every episode of every season of a TV series by its rating. Native on
   iPhone, iPad, Mac, Apple TV and Apple Vision Pro. Free, with no account." (the page has no
   meta description today).
-- [ ] Delete `index.html`, `css/`, `js/`, `fonts/`.
-- [ ] Add `scripts/check-dist.mjs` (Node built-ins only). It asserts:
+- [x] Delete `index.html`, `css/`, `js/`, `fonts/`.
+- [x] Add `scripts/check-dist.mjs` (Node built-ins only). It asserts:
   expected files exist (`index.html`, `images/app-icon.png`, `images/favicon.png`, the 8
   screenshots, the 12 badge SVGs); every file under `dist/images/` is byte-identical to its
   source in `src/assets/images/`; every internal `href` and `src` in every HTML file resolves
@@ -432,18 +432,18 @@ single-sourced, and the build is checked automatically.
   `/kickstart|ignite/i`; no file exceeds 25 MiB; `index.html` references the badge file that
   belongs to `app.status`, which the script reads from `src/data/site.ts` with a regular
   expression on the `status:` line; `index.html` contains the ids `features`, `faq`, `download`.
-- [ ] Add `README.md` with sections: what this repository is, requirements (Node 22),
+- [x] Add `README.md` with sections: what this repository is, requirements (Node 22),
   commands (`npm run dev`, `npm run check`), where content lives (`src/data/site.ts`), switching
   from pre-order to released (`app.status`), images (`src/assets/images/`, published under
   `/images/…`).
 
 **Automated Verification**:
-- [ ] `npm ci` succeeds on Node 22.
-- [ ] `npm run check` passes: `astro check` reports 0 errors, the build succeeds and
+- [x] `npm ci` succeeds on Node 22.
+- [x] `npm run check` passes: `astro check` reports 0 errors, the build succeeds and
   `check-dist.mjs` prints "All checks passed."
-- [ ] With `app.status` set to `'released'`, `npm run check` passes and `dist/index.html`
+- [x] With `app.status` set to `'released'`, `npm run check` passes and `dist/index.html`
   references `app-store-download-black.svg`; the value is set back to `'preorder'` afterwards.
-- [ ] `! grep -qE '<script[^>]+src=' dist/index.html` succeeds: the page loads no script file.
+- [x] `! grep -qE '<script[^>]+src=' dist/index.html` succeeds: the page loads no script file.
 
 **Manual Verification**:
 - [ ] `npm run dev`, open `http://localhost:4321/` next to `https://tvgraphs.peterkurzok.de/`:
@@ -638,6 +638,29 @@ repository says so.
 ## Implementation Notes
 
 During implementation, document user feedback, problems, and decisions here.
+
+### Phase 1 (2026-10-02)
+
+- **Heading sizes are fixed, not fluid.** The plan asked for `h1` at `calc(1.375rem + 1.5vw)`
+  capped at `2.5rem`. Measured on the live site, headings are `2.5rem`, `2rem` and `1.5rem` at
+  every width (40, 32 and 24 px at 390 px too), so `site.css` uses the fixed sizes.
+- **"Get the app" was already purple.** Decision 12 assumed Bootstrap blue; the live button
+  renders in `#a78bfa` with white text. The rebuilt button looks the same, so there is no
+  intended visual difference left in the header.
+- **Compared against the live site with headless Edge** at 1280 px and 390 px, light and dark:
+  every section has the same size and position within 1 px. Known differences: the footer has
+  three links and no Kickstart line; the FAQ chevrons are drawn in the text colour, so they are
+  visible in dark appearance (live: near-black on dark grey); the lightbox heading is the
+  caption.
+- **The header is not sticky today and stays that way.** `position: sticky` sits on the `<nav>`
+  inside a `<header>` of the same height, so it scrolls away on the live site; the rebuild keeps
+  that markup and behaviour.
+- **`section` and `footer` elements** replace the generic `div`s; alternating section
+  backgrounds are set per section instead of through `:nth-of-type`.
+- **Extra check in `check-dist.mjs`:** a link with a fragment (`/#faq`) must point at an id that
+  exists on the target page, and `data-full` (the lightbox original) is checked like `href`.
+- **`@types/node` is pinned to `^22`** to match `.nvmrc`; npm would have installed 26.
+- **`astro dev` picks the next free port** when 4321 is taken and prints the URL it uses.
 
 ## References
 
