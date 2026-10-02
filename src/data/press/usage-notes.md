@@ -1,0 +1,3 @@
+The device frames in the framed screenshots are Apple's official product bezel artwork, provided under Apple's Design Resources and App Store Marketing Artwork licences. The device artwork is Apple's, is licensed for user-interface mock-ups of Apple-platform software only, and may not be extracted, modified, redistributed or repackaged as clip art or stock assets. Please use the images only in connection with coverage of TV Graphs.
+
+All series, season and episode data shown comes from The Movie Database (TMDB). This application uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.

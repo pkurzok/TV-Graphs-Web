@@ -1,0 +1,7 @@
+# Cloudflare Pages rejects any single file over 25 MiB, so the press archives are
+# release assets; these lines keep the published URLs working.
+/press/TV-Graphs-Raw-Screenshots-en-US.zip https://github.com/pkurzok/TV-Graphs-Web/releases/download/press-kit-en-US/TV-Graphs-Raw-Screenshots-en-US.zip 302
+/press/TV-Graphs-Framed-Screenshots-en-US.zip https://github.com/pkurzok/TV-Graphs-Web/releases/download/press-kit-en-US/TV-Graphs-Framed-Screenshots-en-US.zip 302
+# Without a 404 page these two used to answer with the homepage.
+/privacy.html /privacy/ 301
+/press.html /press/ 301
