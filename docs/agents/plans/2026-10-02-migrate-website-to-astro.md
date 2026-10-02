@@ -602,7 +602,7 @@ repository says so.
   One thing to fix when it is: the six store pages linking an English-only policy." The spelling
   item is dropped because Phase 2 fixed it. Commit in the `TVGraphs` repository following its
   `AGENTS.md`; confirm with Peter before committing there.
-- [ ] Rewrite the memory
+- [-] Rewrite the memory
   `~/.claude/projects/-Users-peter-kurzok-ws-workshop-TV-Graphs-Web/memory/tv-graphs-site-is-generated-output.md`
   as `tv-graphs-site-is-astro.md`: the repository is the Astro source, content lives in
   `src/data/site.ts` and Markdown, deploy is a push to `main` built by Cloudflare Pages, press
@@ -692,6 +692,8 @@ During implementation, document user feedback, problems, and decisions here.
 
 - **`check:live` compares every image** in `src/assets/images/` byte for byte, not only the
   subset the plan lists, and it checks that both archives answer 200 at the release.
+- **The memory is rewritten as `tv-graphs-site-is-astro.md` already,** worded for the state
+  before the cutover (branch `astro`, not pushed); it gets its final wording after the merge.
 - **Trial run against today's site** (`tv-graphs-web.pages.dev`): 36 of 42 checks pass. The six
   failures are the ones the migration fixes: framed ZIP not yet a redirect and not yet a release
   asset, `/privacy.html` and `/press.html` answering 200, unknown paths answering 200.
