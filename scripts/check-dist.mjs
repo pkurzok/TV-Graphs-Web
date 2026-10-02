@@ -9,7 +9,7 @@ const imageSource = 'src/assets/images';
 const sizeLimit = 25 * 1024 * 1024; // Cloudflare Pages rejects larger files.
 
 // Internal links that are allowed to dangle because a later phase adds their page.
-const pending = ['/privacy/', '/press/'];
+const pending = ['/press/'];
 
 const badgeFiles = { preorder: 'app-store-preorder', released: 'app-store-download' };
 
@@ -26,8 +26,16 @@ const screenshots = [
 const badges = ['app-store', 'apple-tv', 'mac-app-store'].flatMap((store) =>
   ['download', 'preorder'].flatMap((kind) => ['black', 'white'].map((tone) => `${store}-${kind}-${tone}.svg`)),
 );
+const site = 'https://tvgraphs.peterkurzok.de';
+const sitemapUrls = ['/', '/privacy/', '/press/'].map((page) => site + page);
+
 const expectedFiles = [
   'index.html',
+  'privacy/index.html',
+  '404.html',
+  'feed.rss',
+  'sitemap.xml',
+  'robots.txt',
   'images/app-icon.png',
   'images/favicon.png',
   ...screenshots.map((file) => `images/screenshots/${file}`),
@@ -145,6 +153,34 @@ check(
 );
 for (const id of ['features', 'faq', 'download']) {
   check(index.includes(`id="${id}"`), `index.html has id "${id}"`, 'missing');
+}
+
+// Sitemap and feed
+const sitemap = files.includes('sitemap.xml') ? await read('sitemap.xml') : '';
+const locations = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map(([, location]) => location);
+check(
+  locations.length === sitemapUrls.length && sitemapUrls.every((url) => locations.includes(url)),
+  `sitemap.xml lists exactly ${sitemapUrls.length} URLs`,
+  `found ${locations.join(', ') || 'none'}`,
+);
+const feed = files.includes('feed.rss') ? await read('feed.rss') : '';
+check(feed.includes(`<atom:link href="${site}/feed.rss"`), 'feed.rss links to itself', 'atom:link missing');
+
+// Privacy policy
+const privacy = html.get('privacy/index.html') ?? '';
+check(
+  privacy.includes(`<link rel="canonical" href="${site}/privacy/"`),
+  'privacy/index.html has its canonical URL',
+  'missing',
+);
+check(
+  privacy.includes('Last updated: 25 August 2026'),
+  'privacy/index.html carries its "Last updated" date',
+  'adjust this check when the policy changes',
+);
+check(!privacy.includes('TVGraphs'), 'privacy/index.html spells the app "TV Graphs"', 'found "TVGraphs"');
+for (const anchor of ['/#features', '/#faq', '/#download']) {
+  check(privacy.includes(`href="${anchor}"`), `privacy/index.html navigation links to ${anchor}`, 'missing');
 }
 
 if (failures > 0) {

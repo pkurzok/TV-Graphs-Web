@@ -464,39 +464,39 @@ Dependencies: Phase 1
 `sitemap.xml` and `robots.txt` keep their URLs.
 
 **Tasks**:
-- [ ] Add `src/layouts/Prose.astro`: wraps `Base`, renders the slot inside the `.privacy-page`
+- [x] Add `src/layouts/Prose.astro`: wraps `Base`, renders the slot inside the `.privacy-page`
   and `.privacy-content` containers; takes `title` and `description` from `frontmatter`, builds
   the `<title>` as `<title> - TV Graphs`.
-- [ ] Add `src/pages/privacy.md` with frontmatter `layout: ../layouts/Prose.astro`,
+- [x] Add `src/pages/privacy.md` with frontmatter `layout: ../layouts/Prose.astro`,
   `title: Privacy Policy`,
   `description: "What TV Graphs sends from your device, to whom, and when: no accounts, no analytics, no tracking."`,
   `path: /privacy/`; convert
   `privacy/index.html:59-113` to Markdown verbatim (headings, lists, `code`, links, bold),
   changing only "TVGraphs" to "TV Graphs" in the first paragraph and in "Children".
-- [ ] Add `src/pages/404.astro`: `Base` layout with title `Page not found - TV Graphs` and
+- [x] Add `src/pages/404.astro`: `Base` layout with title `Page not found - TV Graphs` and
   description "This page does not exist."; heading "Page not found", one sentence, a `.button`
   link to `/`; `<meta name="robots" content="noindex">` through a `noindex` prop on `Base`.
-- [ ] Add `src/pages/sitemap.xml.ts`: `GET` returns a `urlset` with one `<url><loc>` per entry
+- [x] Add `src/pages/sitemap.xml.ts`: `GET` returns a `urlset` with one `<url><loc>` per entry
   of `pages` in `site.ts` (`/`, `/privacy/`, `/press/`), built on `context.site`, content type
   `application/xml`.
-- [ ] Add `src/pages/feed.rss.ts`: `GET` returns the empty channel of today's `feed.rss`
+- [x] Add `src/pages/feed.rss.ts`: `GET` returns the empty channel of today's `feed.rss`
   (title, empty description, link, `atom:link` self reference, `language` `en`) without the
   `generator` element, content type `application/rss+xml`.
-- [ ] Move `robots.txt` to `public/robots.txt` with `git mv`, content unchanged.
-- [ ] Delete `privacy/index.html`, `feed.rss`, `sitemap.xml`.
-- [ ] Extend `scripts/check-dist.mjs`: expected files `privacy/index.html`, `404.html`,
+- [x] Move `robots.txt` to `public/robots.txt` with `git mv`, content unchanged.
+- [x] Delete `privacy/index.html`, `feed.rss`, `sitemap.xml`.
+- [x] Extend `scripts/check-dist.mjs`: expected files `privacy/index.html`, `404.html`,
   `feed.rss`, `sitemap.xml`, `robots.txt`; `sitemap.xml` contains exactly the three URLs;
   `feed.rss` contains `<atom:link href="https://tvgraphs.peterkurzok.de/feed.rss"`;
   `privacy/index.html` has the canonical `https://tvgraphs.peterkurzok.de/privacy/`, contains
   "Last updated: 25 August 2026" and does not contain "TVGraphs"; its navigation links are
   `/#features`, `/#faq`, `/#download`. Remove `/privacy/` from the `pending` list; `/press/`
   stays on it until Phase 3.
-- [ ] Extend `README.md`: editing the privacy policy (`src/pages/privacy.md`, update the "Last
+- [x] Extend `README.md`: editing the privacy policy (`src/pages/privacy.md`, update the "Last
   updated" line when the wording changes).
 
 **Automated Verification**:
-- [ ] `npm run check` passes with the extended assertions.
-- [ ] `xmllint --noout dist/sitemap.xml dist/feed.rss` reports no error.
+- [x] `npm run check` passes with the extended assertions.
+- [x] `xmllint --noout dist/sitemap.xml dist/feed.rss` reports no error.
 
 **Manual Verification**:
 - [ ] `npm run dev`, open `/privacy/` next to the live page: text, headings, lists and links
@@ -661,6 +661,17 @@ During implementation, document user feedback, problems, and decisions here.
   exists on the target page, and `data-full` (the lightbox original) is checked like `href`.
 - **`@types/node` is pinned to `^22`** to match `.nvmrc`; npm would have installed 26.
 - **`astro dev` picks the next free port** when 4321 is taken and prints the URL it uses.
+
+### Phase 2 (2026-10-02)
+
+- **Privacy text verified against the live page element by element:** the only differences are
+  the two "TVGraphs" spellings. Layout is identical at 1280 px and 390 px in both appearances.
+- **`code` keeps today's rendering:** full font size and Bootstrap's pink `#d63384` in both
+  appearances, as measured on the live page.
+- **The 404 page has no canonical link and no `og:url`;** `Base` leaves both out when `noindex`
+  is set.
+- **The feed drops two unused XML namespaces** (`dc`, `content`) along with the `generator`.
+- **The sitemap has no `<priority>`** any more, as planned.
 
 ## References
 

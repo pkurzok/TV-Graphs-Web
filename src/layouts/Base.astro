@@ -33,13 +33,13 @@ const touchIcon = await getImage({ src: appIcon, width: 180, height: 180, format
     <meta name="description" content={description} />
     <meta name="author" content={app.author} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/png" href={favicon.src} />
     <link rel="apple-touch-icon" href={touchIcon.src} />
     <meta property="og:site_name" content={app.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={socialImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

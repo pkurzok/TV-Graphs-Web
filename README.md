@@ -27,6 +27,9 @@ or a published file is missing.
 |---|---|
 | Hero, highlights, features, FAQ, download text, navigation, footer | `src/data/site.ts` |
 | Screenshot list with alt texts and captions | `src/data/site.ts` (`screenshots`) |
+| Privacy policy | `src/pages/privacy.md` |
+| 404 page | `src/pages/404.astro` |
+| `robots.txt` | `public/robots.txt` |
 | Markup of a section | `src/components/` |
 | Page frame: `<head>`, header, footer | `src/layouts/Base.astro` |
 | Styles | `src/styles/site.css` |
@@ -37,6 +40,12 @@ A FAQ entry, a feature text or a footer link is one edit in `src/data/site.ts`.
 
 Set `app.status` in `src/data/site.ts` from `'preorder'` to `'released'`. The App Store badge and
 the download text follow that value; both wordings are already in the file.
+
+## Editing the privacy policy
+
+The policy is `src/pages/privacy.md`, plain Markdown. When the wording changes, update the
+"Last updated" line at the top of the text and the date that `scripts/check-dist.mjs` expects.
+The app links to `/privacy/`, so the path must stay.
 
 ## Images
 
