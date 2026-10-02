@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check": "npm run build && node scripts/check-dist.mjs"
+    "check": "npm run build && node scripts/check-dist.mjs",
+    "check:live": "node scripts/check-live.mjs"
   },
   "dependencies": {
     "astro": "^7.3.5"
