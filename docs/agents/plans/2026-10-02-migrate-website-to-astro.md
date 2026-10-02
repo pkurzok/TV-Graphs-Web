@@ -446,14 +446,14 @@ single-sourced, and the build is checked automatically.
 - [x] `! grep -qE '<script[^>]+src=' dist/index.html` succeeds: the page loads no script file.
 
 **Manual Verification**:
-- [ ] `npm run dev`, open `http://localhost:4321/` next to `https://tvgraphs.peterkurzok.de/`:
+- [x] `npm run dev`, open `http://localhost:4321/` next to `https://tvgraphs.peterkurzok.de/`:
   header, hero, highlights, features, carousel, FAQ, download band and footer match in light
   and in dark appearance; the only intended difference is the purple "Get the app" button.
-- [ ] At a window width below 768 px the menu button opens and closes the navigation.
-- [ ] Clicking a screenshot opens the lightbox with the full-size image; Escape, the close
+- [x] At a window width below 768 px the menu button opens and closes the navigation.
+- [x] Clicking a screenshot opens the lightbox with the full-size image; Escape, the close
   button and a click on the backdrop close it.
-- [ ] Opening one FAQ entry closes the previously open one.
-- [ ] Peter reads the released wording in the table under Desired End State and confirms or
+- [x] Opening one FAQ entry closes the previously open one.
+- [x] Peter reads the released wording in the table under Desired End State and confirms or
   corrects it.
 
 ### Phase 2: Privacy policy, 404 page and technical files
@@ -499,9 +499,9 @@ Dependencies: Phase 1
 - [x] `xmllint --noout dist/sitemap.xml dist/feed.rss` reports no error.
 
 **Manual Verification**:
-- [ ] `npm run dev`, open `/privacy/` next to the live page: text, headings, lists and links
+- [x] `npm run dev`, open `/privacy/` next to the live page: text, headings, lists and links
   match; the navigation entries lead to the homepage sections.
-- [ ] Open `http://localhost:4321/nope`: the 404 page appears in the site's layout.
+- [x] Open `http://localhost:4321/nope`: the 404 page appears in the site's layout.
 
 ### Phase 3: Press kit and downloads
 
@@ -559,9 +559,9 @@ repository holds no ZIP any more.
 - [x] `git ls-files '*.zip'` prints nothing.
 
 **Manual Verification**:
-- [ ] `npm run dev`, open `/press/` next to the live page: download cards, about, gallery,
+- [x] `npm run dev`, open `/press/` next to the live page: download cards, about, gallery,
   facts, developer, contact and usage notes match; header and footer are the shared ones.
-- [ ] The footer link "Press Kit" on the homepage opens `/press/`.
+- [x] The footer link "Press Kit" on the homepage opens `/press/`.
 
 ### Phase 4: Cutover and documentation
 
@@ -697,6 +697,11 @@ During implementation, document user feedback, problems, and decisions here.
 - **Trial run against today's site** (`tv-graphs-web.pages.dev`): 36 of 42 checks pass. The six
   failures are the ones the migration fixes: framed ZIP not yet a redirect and not yet a release
   asset, `/privacy.html` and `/press.html` answering 200, unknown paths answering 200.
+
+### Feedback after Phases 1 to 3 (2026-10-02)
+
+- **Peter confirmed all manual checks of Phases 1 to 3,** including the released wording.
+- **Fourth footer link on Peter's request:** "More Apps", leading to `https://apps.peterkurzok.de`.
 
 ## References
 
