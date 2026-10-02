@@ -876,6 +876,119 @@ th {
 }
 
 /* ==========================================
+   Press kit
+   ========================================== */
+
+.press-main {
+    padding: 3rem 0 4rem;
+}
+
+/* The press kit uses the full 1200px; narrower windows keep a gutter. */
+.press-main .container {
+    width: min(1200px, calc(100% - 3rem));
+    padding: 0;
+}
+
+.press-main h1 {
+    margin-bottom: 0.5rem;
+}
+
+.press-lead {
+    font-size: 1.15rem;
+    max-width: 46rem;
+}
+
+.press-section {
+    margin-top: 3rem;
+}
+
+.press-section h2 {
+    margin-bottom: 1rem;
+}
+
+.press-downloads {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .press-downloads {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.press-download-card {
+    border: 1px solid rgba(128, 128, 128, 0.25);
+    border-radius: 12px;
+    padding: 1.25rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.press-download-card h3 {
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+.press-download-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    flex-grow: 1;
+}
+
+.press-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.press-gallery figure {
+    margin: 0;
+}
+
+.press-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.press-gallery figcaption {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin-top: 0.35rem;
+}
+
+.press-facts th {
+    white-space: nowrap;
+    padding-right: 1.5rem;
+}
+
+.press-facts th,
+.press-facts td {
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+    vertical-align: top;
+}
+
+/* The App Store address has no spaces; let it break on a phone. */
+.press-facts td {
+    overflow-wrap: anywhere;
+}
+
+.press-note {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.press-section > p.press-note {
+    margin-top: 0.75rem;
+}
+
+/* ==========================================
    Footer
    ========================================== */
 

@@ -8,9 +8,6 @@ const dist = 'dist';
 const imageSource = 'src/assets/images';
 const sizeLimit = 25 * 1024 * 1024; // Cloudflare Pages rejects larger files.
 
-// Internal links that are allowed to dangle because a later phase adds their page.
-const pending = ['/press/'];
-
 const badgeFiles = { preorder: 'app-store-preorder', released: 'app-store-download' };
 
 const screenshots = [
@@ -27,11 +24,19 @@ const badges = ['app-store', 'apple-tv', 'mac-app-store'].flatMap((store) =>
   ['download', 'preorder'].flatMap((kind) => ['black', 'white'].map((tone) => `${store}-${kind}-${tone}.svg`)),
 );
 const site = 'https://tvgraphs.peterkurzok.de';
+const release = 'https://github.com/pkurzok/TV-Graphs-Web/releases/download/press-kit-en-US';
+const archives = ['TV-Graphs-Raw-Screenshots-en-US.zip', 'TV-Graphs-Framed-Screenshots-en-US.zip'];
+const expectedRedirects = [
+  ...archives.map((archive) => [`/press/${archive}`, `${release}/${archive}`, '302']),
+  ['/privacy.html', '/privacy/', '301'],
+  ['/press.html', '/press/', '301'],
+];
 const sitemapUrls = ['/', '/privacy/', '/press/'].map((page) => site + page);
 
 const expectedFiles = [
   'index.html',
   'privacy/index.html',
+  'press/index.html',
   '404.html',
   'feed.rss',
   'sitemap.xml',
@@ -87,6 +92,14 @@ const redirects = existsSync(path.join(dist, '_redirects'))
       .map((line) => line.split(/\s+/))
   : [];
 const redirectSources = redirects.map(([source]) => source);
+for (const [source, target, status] of expectedRedirects) {
+  const rule = redirects.find(([candidate]) => candidate === source);
+  check(
+    rule?.[1] === target && rule?.[2] === status,
+    `_redirects: ${source} -> ${target.replace('https://github.com/pkurzok/TV-Graphs-Web/', '')} ${status}`,
+    rule ? `found "${rule.join(' ')}"` : 'rule missing',
+  );
+}
 
 // Internal links
 const htmlFiles = files.filter((file) => file.endsWith('.html'));
@@ -104,7 +117,7 @@ for (const [file, content] of html) {
       linkProblems.push(`${file}: "${target}" is not root-relative`);
       continue;
     }
-    if (redirectSources.includes(pathname) || pending.includes(pathname)) continue;
+    if (redirectSources.includes(pathname)) continue;
     const page = pathname ? pageFor(pathname) : file;
     if (!files.includes(page)) {
       const isPage = !path.extname(pathname) && files.includes(pageFor(`${pathname}/`));
@@ -182,6 +195,17 @@ check(!privacy.includes('TVGraphs'), 'privacy/index.html spells the app "TV Grap
 for (const anchor of ['/#features', '/#faq', '/#download']) {
   check(privacy.includes(`href="${anchor}"`), `privacy/index.html navigation links to ${anchor}`, 'missing');
 }
+
+// Press kit
+const pressPage = html.get('press/index.html') ?? '';
+for (const id of ['downloads', 'facts', 'contact']) {
+  check(pressPage.includes(`id="${id}"`), `press/index.html has id "${id}"`, 'missing');
+}
+for (const target of [...archives.map((archive) => `/press/${archive}`), '/images/app-icon.png']) {
+  check(pressPage.includes(`href="${target}"`), `press/index.html links ${target}`, 'missing');
+}
+const zips = files.filter((file) => file.endsWith('.zip'));
+check(zips.length === 0, 'no ZIP archive in the build', `found ${zips.join(', ')}`);
 
 if (failures > 0) {
   console.log(`${failures} ${failures === 1 ? 'check' : 'checks'} failed.`);
