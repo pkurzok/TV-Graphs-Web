@@ -588,13 +588,13 @@ repository says so.
   `npm run build`, output directory `dist`, `NODE_VERSION` 22, push to `main` deploys, branches
   get `<branch>.tv-graphs-web.pages.dev`), the URL contract and `npm run check:live`, rollback
   (Pages, Deployments, "Rollback" on an earlier deployment).
-- [ ] Peter changes the Cloudflare Pages project `tv-graphs-web` under Settings, Builds &
+- [x] Peter changes the Cloudflare Pages project `tv-graphs-web` under Settings, Builds &
   deployments: build command `npm run build`, build output directory `dist`, environment
   variable `NODE_VERSION=22` for production and preview. The live site keeps its last
   deployment until the next successful build.
-- [ ] Only after that change, push branch `astro` for the first time; wait for the "Cloudflare
+- [x] Only after that change, push branch `astro` for the first time; wait for the "Cloudflare
   Pages" check run on the commit to succeed.
-- [ ] Open a pull request from `astro` to `main` and merge it after the preview passed the
+- [-] Open a pull request from `astro` to `main` and merge it after the preview passed the
   checks below; confirm the merge with Peter first.
 - [ ] In `TVGraphs/docs/aso/README.md:176-180`, replace the sentence about Kickstart and the
   two-item list with: "`tvgraphs.peterkurzok.de` lives outside this repository — it is an Astro
@@ -618,7 +618,7 @@ repository says so.
 
 **Automated Verification**:
 - [x] `npm run check` passes on branch `astro`.
-- [ ] `npm run check:live -- https://astro.tv-graphs-web.pages.dev` passes against the preview
+- [x] `npm run check:live -- https://astro.tv-graphs-web.pages.dev` passes against the preview
   deployment.
 - [ ] After the merge, `npm run check:live -- https://tv-graphs-web.pages.dev` passes; the same
   command against `https://tvgraphs.peterkurzok.de` passes where the domain resolves (on
@@ -694,6 +694,10 @@ During implementation, document user feedback, problems, and decisions here.
   subset the plan lists, and it checks that both archives answer 200 at the release.
 - **The memory is rewritten as `tv-graphs-site-is-astro.md` already,** worded for the state
   before the cutover (branch `astro`, not pushed); it gets its final wording after the merge.
+- **Preview deployment:** after Peter changed the build settings, the first push of `astro`
+  built on Cloudflare Pages in about a minute, and `check:live` against
+  `https://astro.tv-graphs-web.pages.dev` passes all 42 checks. Changing the settings of the
+  existing project in place worked; production kept serving the old deployment meanwhile.
 - **Trial run against today's site** (`tv-graphs-web.pages.dev`): 36 of 42 checks pass. The six
   failures are the ones the migration fixes: framed ZIP not yet a redirect and not yet a release
   asset, `/privacy.html` and `/press.html` answering 200, unknown paths answering 200.
