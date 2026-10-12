@@ -10,7 +10,7 @@ export const app = {
   appStoreId: '6804961357',
   appStoreUrl: 'https://apps.apple.com/app/tv-graphs-season-ratings/id6804961357',
   // The one value to change on launch day.
-  status: 'preorder' as LaunchStatus,
+  status: 'released' as LaunchStatus,
   badge: {
     preorder: { file: 'app-store-preorder', alt: 'Pre-order on the App Store' },
     released: { file: 'app-store-download', alt: 'Download on the App Store' },
